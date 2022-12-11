@@ -7,7 +7,7 @@ packages_json = all_packages.json()  # list of packages
 
 results = []
 
-for package in packages_json[:5]:
+for package in packages_json:
     # get name and description
     package_name = package['name']
     package_description = package['desc']
@@ -16,6 +16,7 @@ for package in packages_json[:5]:
     package_analytics = requests.get(package_url)
     package_json =  package_analytics.json()
 
+    # get installs_on_request for MAC
     installs_30 = package_json['analytics']['install_on_request']['30d'][package_name]
     installs_90 = package_json['analytics']['install_on_request']['90d'][package_name]
     installs_365 = package_json['analytics']['install_on_request']['365d'][package_name]
@@ -35,5 +36,3 @@ for package in packages_json[:5]:
 
 with open ('package_info_unsorted.json', 'w') as f:
     json.dump(results, f, indent=2)
-
-print('done')
