@@ -33,17 +33,7 @@ for package in packages_json[:5]:
     }
     results.append(data)
 
-with open ('package_info.json', 'w') as f:
+with open ('package_info_unsorted.json', 'w') as f:
     json.dump(results, f, indent=2)
 
-
-
-
-
-
-# packages_str_first_package = json.dumps(first_package, indent=2)
-# print(packages_str_first_package)
-
-
-
-# hol dir die json datei aus der url
+print('done')
