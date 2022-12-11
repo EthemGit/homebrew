@@ -5,6 +5,7 @@ all_packages = requests.get('https://formulae.brew.sh/api/formula.json')
 
 packages_json = all_packages.json()  # list of packages
 
+results = []
 
 for package in packages_json[:5]:
     # get name and description
@@ -19,9 +20,21 @@ for package in packages_json[:5]:
     installs_90 = package_json['analytics']['install_on_request']['90d'][package_name]
     installs_365 = package_json['analytics']['install_on_request']['365d'][package_name]
 
-    print(package_name, package_description,  installs_30, installs_90, installs_365)
+    # create JSON type file and add it to results
 
+    data = {
+        'name': package_name,
+        'desc': package_description,
+        'analytics': {
+            '30d': installs_30,
+            '90d': installs_90,
+            '365d': installs_365,
+        }
+    }
+    results.append(data)
 
+with open ('package_info.json', 'w') as f:
+    json.dump(results, f, indent=2)
 
 
 
